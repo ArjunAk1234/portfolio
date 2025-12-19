@@ -99,9 +99,9 @@ const Portfolio = () => {
               <Link to="projects" smooth={true} className="bg-blue-600 hover:bg-blue-500 text-white px-8 py-3 rounded-full font-semibold transition cursor-pointer">
                 View Work
               </Link>
-              <button className="border border-slate-700 hover:border-blue-500 px-8 py-3 rounded-full font-semibold transition">
+              {/* <button className="border border-slate-700 hover:border-blue-500 px-8 py-3 rounded-full font-semibold transition">
                 Resume
-              </button>
+              </button> */}
             </div>
           </div>
           <div className="relative group">

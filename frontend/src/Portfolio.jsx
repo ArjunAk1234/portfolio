@@ -20,6 +20,7 @@ const Portfolio = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
   const [selectedBlog, setSelectedBlog] = useState(null);
+  const [selectedProject, setSelectedProject] = useState(null);
   useEffect(() => {
     const fetchAll = async () => {
         

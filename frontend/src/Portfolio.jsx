@@ -6,6 +6,7 @@ import {
   Github, ExternalLink, Mail, Code, User, Briefcase, 
   MessageSquare, ChevronRight, Terminal, Star, Send, Loader2
 } from 'lucide-react';
+// Add AnimatePresence here
 import { AnimatePresence } from "framer-motion";
 const API_BASE = import.meta.env.VITE_API_BASE_URL;
 
@@ -98,9 +99,9 @@ const Portfolio = () => {
               <Link to="projects" smooth={true} className="bg-blue-600 hover:bg-blue-500 text-white px-8 py-3 rounded-full font-semibold transition cursor-pointer">
                 View Work
               </Link>
-              {/* <button className="border border-slate-700 hover:border-blue-500 px-8 py-3 rounded-full font-semibold transition">
+              <button className="border border-slate-700 hover:border-blue-500 px-8 py-3 rounded-full font-semibold transition">
                 Resume
-              </button> */}
+              </button>
             </div>
           </div>
           <div className="relative group">
@@ -131,7 +132,10 @@ const Portfolio = () => {
         </div>
       </section>
 
-         <section id="projects" className="py-20 px-6 max-w-6xl mx-auto">
+      
+
+      {/* --- PROJECTS --- */}
+      <section id="projects" className="py-20 px-6 max-w-6xl mx-auto">
         <h2 className="text-3xl font-bold mb-12 flex items-center gap-3">
           <Briefcase className="text-blue-500" /> Selected Projects
         </h2>
@@ -279,7 +283,8 @@ const Portfolio = () => {
     </div>
   )}
 </AnimatePresence>
-   
+      </section>
+
       {/* --- BLOGS SECTION --- */}
       <section id="blogs" className="py-20 px-6 max-w-6xl mx-auto border-t border-slate-900">
         <h2 className="text-3xl font-bold mb-12 flex items-center gap-3">
@@ -371,23 +376,6 @@ const Portfolio = () => {
         )}
       </section>
 
-      {/* --- EXPERIENCE --- */}
-      {/* <section id="experience" className="py-20 bg-slate-900/50">
-        <div className="max-w-4xl mx-auto px-6">
-          <h2 className="text-3xl font-bold mb-12 text-center flex justify-center items-center gap-3"><User className="text-blue-500" /> Journey</h2>
-          <div className="space-y-8 border-l-2 border-slate-800 pl-8 ml-4">
-            {data.experience.map((exp, i) => (
-              <div key={i} className="relative">
-                <div className="absolute -left-[41px] top-0 w-4 h-4 rounded-full bg-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.5)]" />
-                <span className="text-sm text-blue-500 font-mono">{exp.duration}</span>
-                <h3 className="text-xl font-bold text-white mt-1">{exp.role}</h3>
-                <h4 className="text-slate-400 font-medium">{exp.company}</h4>
-                <p className="text-slate-500 text-sm mt-2 leading-relaxed">{exp.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section> */}
       {/* --- HORIZONTAL EXPERIENCE / JOURNEY --- */}
       <section id="experience" className="py-20 bg-slate-900/30 overflow-hidden">
         <div className="max-w-6xl mx-auto px-6">

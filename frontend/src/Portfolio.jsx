@@ -130,48 +130,155 @@ const Portfolio = () => {
         </div>
       </section>
 
-      {/* --- PROJECTS --- */}
-      <section id="projects" className="py-20 px-6 max-w-6xl mx-auto">
+         <section id="projects" className="py-20 px-6 max-w-6xl mx-auto">
         <h2 className="text-3xl font-bold mb-12 flex items-center gap-3">
           <Briefcase className="text-blue-500" /> Selected Projects
         </h2>
+        
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {data.projects.map((project, i) => (
-            <motion.div key={i} initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} className="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden group">
-              <div className="h-48 overflow-hidden">
-                <img src={project.image_url} className="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt={project.title} />
+            <motion.div 
+              key={i} 
+              initial={{ opacity: 0, scale: 0.9 }} 
+              whileInView={{ opacity: 1, scale: 1 }} 
+              viewport={{ once: true }} 
+              className="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden group flex flex-col"
+            >
+              {/* Image Container */}
+              <div className="h-48 overflow-hidden relative">
+                <img 
+                  src={project.image_url} 
+                  className="w-full h-full object-cover group-hover:scale-110 transition duration-500" 
+                  alt={project.title} 
+                />
+                <div className="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                   <button 
+                    onClick={() => setSelectedProject(project)}
+                    className="bg-white text-slate-900 px-4 py-2 rounded-full font-bold text-sm transform translate-y-4 group-hover:translate-y-0 transition"
+                   >
+                     View Project Details
+                   </button>
+                </div>
               </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold mb-2 text-white">{project.title}</h3>
-                <p className="text-slate-400 text-sm mb-4 line-clamp-3">{project.description}</p>
-                <div className="flex gap-4">
-                  {project.live_link && <a href={project.live_link} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-white transition"><ExternalLink size={20}/></a>}
-                  {project.github_link && <a href={project.github_link} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition"><Github size={20}/></a>}
+
+              {/* Content */}
+              <div className="p-6 flex flex-col flex-grow">
+                <h3 className="text-xl font-bold mb-2 text-white group-hover:text-blue-400 transition-colors">
+                  {project.title}
+                </h3>
+                <p className="text-slate-400 text-sm mb-6 line-clamp-2">
+                  {project.description}
+                </p>
+                
+                <div className="mt-auto flex items-center justify-between">
+                  <button 
+                    onClick={() => setSelectedProject(project)}
+                    className="text-blue-400 text-sm font-semibold flex items-center gap-1 hover:text-blue-300 transition"
+                  >
+                    Read Details <ChevronRight size={16}/>
+                  </button>
+                  
+                  <div className="flex gap-3">
+                    {project.live_link && (
+                      <a href={project.live_link} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition">
+                        <ExternalLink size={18}/>
+                      </a>
+                    )}
+                    {project.github_link && (
+                      <a href={project.github_link} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-white transition">
+                        <Github size={18}/>
+                      </a>
+                    )}
+                  </div>
                 </div>
               </div>
             </motion.div>
           ))}
         </div>
-      </section>
 
-      {/* --- NEW: BLOGS SECTION --- */}
-      {/* <section id="blogs" className="py-20 px-6 max-w-6xl mx-auto border-t border-slate-900">
-        <h2 className="text-3xl font-bold mb-12 flex items-center gap-3">
-          <MessageSquare className="text-blue-500" /> Articles & Thoughts
-        </h2>
-        <div className="grid md:grid-cols-2 gap-8">
-          {data.blogs.map((blog, i) => (
-            <div key={i} className="flex flex-col md:flex-row gap-6 bg-slate-900/40 p-6 rounded-2xl border border-slate-800">
-              {blog.image_url && <img src={blog.image_url} className="w-full md:w-32 h-32 rounded-xl object-cover" alt="Blog" />}
-              <div>
-                <h3 className="text-xl font-bold text-white mb-2">{blog.title}</h3>
-                <p className="text-slate-400 text-sm line-clamp-3 mb-4">{blog.content}</p>
-                <button className="text-blue-400 text-sm font-semibold flex items-center gap-1 hover:underline">Read More <ChevronRight size={16}/></button>
-              </div>
-            </div>
-          ))}
+        {/* --- PROJECT MODAL --- */}
+       {/* --- PROJECT MODAL --- */}
+<AnimatePresence>
+  {selectedProject && (
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6">
+      {/* Backdrop */}
+      <motion.div 
+        initial={{ opacity: 0 }} 
+        animate={{ opacity: 1 }} 
+        exit={{ opacity: 0 }}
+        onClick={() => setSelectedProject(null)}
+        className="absolute inset-0 bg-slate-950/90 backdrop-blur-md cursor-zoom-out"
+      />
+      
+      {/* Modal Container */}
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.9, y: 20 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.9, y: 10 }}
+        className="relative bg-[#0f172a] border border-slate-800 w-full max-w-5xl max-h-[90vh] md:h-[600px] overflow-hidden rounded-[2rem] shadow-2xl flex flex-col md:flex-row"
+      >
+        {/* Close Button (Styled like your screenshot) */}
+        <button 
+          onClick={() => setSelectedProject(null)}
+          className="absolute top-6 right-6 z-20 p-2 bg-slate-800/50 text-white rounded-full hover:bg-slate-700 transition-colors"
+        >
+          <ChevronRight className="rotate-180" size={20} />
+        </button>
+
+        {/* LEFT SIDE: Image (Fixed to show the whole dashboard) */}
+        <div className="w-full md:w-3/5 h-64 md:h-full bg-[#1e293b]/30 flex items-center justify-center p-4 md:p-8 border-b md:border-b-0 md:border-r border-slate-800/50">
+          <motion.img 
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            src={selectedProject.image_url} 
+            className="w-full h-full object-contain drop-shadow-2xl rounded-xl" 
+            alt="Project Preview" 
+          />
         </div>
-      </section> */}
+
+        {/* RIGHT SIDE: Content */}
+        <div className="w-full md:w-2/5 flex flex-col h-full bg-[#0a0f1d]">
+          <div className="p-8 md:p-10 flex flex-col h-full">
+            <h2 className="text-4xl font-bold text-white mb-6">
+                {selectedProject.title}
+            </h2>
+            
+            <div className="flex-grow overflow-y-auto custom-scrollbar pr-2">
+              <p className="text-slate-400 text-lg leading-relaxed mb-8">
+                {selectedProject.description}
+              </p>
+            </div>
+
+            {/* Action Buttons (Styled to match your screenshot) */}
+            <div className="flex gap-4 mt-6">
+              {selectedProject.live_link && (
+                <a 
+                  href={selectedProject.live_link} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="flex-1 flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 text-white px-6 py-4 rounded-2xl font-bold transition shadow-lg shadow-blue-600/20"
+                >
+                  <ExternalLink size={20}/> Demo
+                </a>
+              )}
+              {selectedProject.github_link && (
+                <a 
+                  href={selectedProject.github_link} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="flex-1 flex items-center justify-center gap-2 bg-slate-800/80 hover:bg-slate-700 text-white px-6 py-4 rounded-2xl font-bold transition border border-slate-700"
+                >
+                  <Github size={20}/> Code
+                </a>
+              )}
+            </div>
+          </div>
+        </div>
+      </motion.div>
+    </div>
+  )}
+</AnimatePresence>
+   
       {/* --- BLOGS SECTION --- */}
       <section id="blogs" className="py-20 px-6 max-w-6xl mx-auto border-t border-slate-900">
         <h2 className="text-3xl font-bold mb-12 flex items-center gap-3">

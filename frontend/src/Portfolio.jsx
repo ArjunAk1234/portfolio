@@ -6,7 +6,7 @@ import {
   Github, ExternalLink, Mail, Code, User, Briefcase, 
   MessageSquare, ChevronRight, Terminal, Star, Send, Loader2
 } from 'lucide-react';
-
+import { AnimatePresence } from "framer-motion";
 const API_BASE = import.meta.env.VITE_API_BASE_URL;
 
 const Portfolio = () => {
